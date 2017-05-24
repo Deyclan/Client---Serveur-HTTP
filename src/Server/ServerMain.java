@@ -1,7 +1,18 @@
 package Server;
 
+import java.io.IOException;
+
 /**
- * Created by Brandon on 24/05/2017.
+ * Class that will init the servers
  */
 public class ServerMain {
+    public static void main(String[] args) throws IOException 
+	{
+		try {
+			ServerHTTP serverHTTP = new ServerHTTP();
+			
+		}   catch(Exception e){
+			System.out.println("Message error : "+e.getMessage());
+		}
+	}
 }
