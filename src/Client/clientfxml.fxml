@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="500.0" maxWidth="600.0" minHeight="500.0" minWidth="600.0" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientfxmlController">
+   <children>
+      <Rectangle arcWidth="5.0" fill="#e4a888" height="85.0" stroke="#6b6b6b78" strokeType="INSIDE" width="600.0" />
+      <Label layoutX="40.0" layoutY="30.0" text="Adresse">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="destIP" layoutX="105.0" layoutY="30.0" prefHeight="25.0" prefWidth="155.0" promptText="adresse IP du destinataire" />
+      <Label layoutX="290.0" layoutY="30.0" text="/">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fileName" layoutX="325.0" layoutY="30.0" prefHeight="25.0" prefWidth="150.0" promptText="nom du fichier souhaité" />
+      <Button fx:id="getFileBtn" layoutX="500.0" layoutY="30.0" mnemonicParsing="false" onAction="#getFile" text="GET !" />
+      <TextArea fx:id="zoneHeader" editable="false" layoutX="40.0" layoutY="100.0" prefHeight="160.0" prefWidth="520.0" />
+      <TextArea fx:id="zoneFichier" editable="false" layoutX="40.0" layoutY="265.0" prefHeight="170.0" prefWidth="520.0" />
+      <Rectangle arcWidth="5.0" fill="#bc8b70" height="46.0" layoutY="455.0" stroke="#6b6b6b78" strokeType="INSIDE" width="600.0" />
+      <ProgressBar layoutX="175.0" layoutY="470.0" prefHeight="20.0" prefWidth="410.0" progress="0.0" />
+      <Label layoutX="15.0" layoutY="470.0" prefWidth="155.0" text="Progression du chargement :" />
+   </children>
+</AnchorPane>
