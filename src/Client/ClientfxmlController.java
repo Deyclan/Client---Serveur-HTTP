@@ -7,11 +7,20 @@ package Client;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import sun.plugin.javascript.navig.Anchor;
+
+import javax.swing.*;
 
 /**
  * FXML Controller class
@@ -20,10 +29,8 @@ import javafx.scene.control.TextField;
  */
 public class ClientfxmlController implements Initializable {
 
-    @FXML
-    Button getFileBtn;
-    @FXML
-    TextField destIP, fileName;
+    @FXML Button getFileBtn;
+    @FXML TextField destIP, fileName;
     @FXML TextArea zoneHeader, zoneFichier;
 
     /**
@@ -36,12 +43,33 @@ public class ClientfxmlController implements Initializable {
         assert fileName != null : "fx:id=\"fileName\" was not injected: check your FXML file 'clientfxml.fxml'.";
         assert zoneHeader != null : "fx:id=\"zoneHeader\" was not injected: check your FXML file 'clientfxml.fxml'.";
         assert zoneFichier != null : "fx:id=\"zoneFichier\" was not injected: check your FXML file 'clientfxml.fxml'.";
+
     }
     
     
     public void getFile(){
-        
-    }
-    
 
+        String command = "GET /";
+        command+=destIP.getText();
+        command+="/";
+        command+=fileName.getText();
+        command+=" HTTP/1.1";
+
+        Client client = new Client(command,destIP.getText(),fileName.getText());
+
+        while (client.fileContent == ""){}
+        if(client.fileType.contains("jpg") || client.fileType.contains("png")){
+            ImageIcon imageIcon = new ImageIcon(client.fileType);
+            JDialog dialog = new JDialog();
+            dialog.setTitle(client.fileName);
+            JLabel label = new JLabel(imageIcon);
+            dialog.add(label);
+            dialog.pack();
+            dialog.setVisible(true);
+        }
+        else{
+            zoneHeader.setText(client.header);
+            zoneFichier.setText(client.fileContent);
+        }
+    }
 }
