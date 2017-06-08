@@ -1,9 +1,12 @@
 package Client;
 
+import java.awt.*;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -16,10 +19,13 @@ public class Client {
     String fileName;
     String request;
     String connexionType;
+    File file ;
 
     public String fileContent;
     public String header;
     public String fileType;
+
+    String error = "";
 
     public Client() {
         try {
@@ -45,9 +51,10 @@ public class Client {
             this.address = InetAddress.getByName(address);
             this.fileName = fileName;
             this.request = request;
-            clientSocket = new Socket(this.address,2046);
+            clientSocket = new Socket(this.address,1026);
             runClient();
         } catch (UnknownHostException e) {
+            error = "Veuillez rentrer une Adresse IP valide";
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -117,7 +124,7 @@ public class Client {
                 String nomFichierSplit = "inconnu.html";
                 if(request.split("/").length > 2)
                     nomFichierSplit = request.split("/")[2].split(" ")[0];
-                File file = new File("RECU"+nomFichierSplit);
+                file = new File("RECU"+nomFichierSplit);
                 file.createNewFile();
 
                 fileType = nomFichierSplit;
@@ -146,10 +153,42 @@ public class Client {
                 fop.write(data);
                 fileContent = new String(data);
                 fop.close();
+                try {
+                    Desktop.getDesktop().browse(file.toURI());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 clientSocket.close();
 
             }
         }
+    }
+
+    public String[] byteToStringArray(byte[] bytes){
+        ArrayList<String> strings = new ArrayList<>();
+        String temp = "";
+        String space = " ";
+        String CR = "\n" ;
+        String LF = "\r";
+        for( int i = 0 ; i<bytes.length ; i++ ){
+            if (bytes[i] == space.getBytes()[0]){
+                strings.add(temp);
+                temp = "";
+            }
+            else if (bytes[i] == CR.getBytes()[0]){
+                break;
+            }
+            else {
+                temp += (char)bytes[i];
+            }
+        }
+
+        int n = strings.size();
+        String[] returnString = new String[n];
+        for (int i = 0 ; i<n ; i++){
+            returnString[i] = strings.get(i);
+        }
+        return returnString;
     }
 
 

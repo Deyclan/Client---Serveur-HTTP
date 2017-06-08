@@ -5,6 +5,8 @@
  */
 package Client;
 
+import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -57,8 +59,13 @@ public class ClientfxmlController implements Initializable {
 
         Client client = new Client(command,destIP.getText(),fileName.getText());
 
-        while (client.fileContent == ""){}
-        if(client.fileType.contains("jpg") || client.fileType.contains("png")){
+        if (!client.error.equals("")){
+            zoneHeader.setText(client.error);
+        }
+
+        else if(client.fileType.contains("jpg") || client.fileType.contains("png")){
+            zoneFichier.setText("Image reçue, \n     => Voir onglet Image");
+
             ImageIcon imageIcon = new ImageIcon(client.fileType);
             JDialog dialog = new JDialog();
             dialog.setTitle(client.fileName);
@@ -66,6 +73,17 @@ public class ClientfxmlController implements Initializable {
             dialog.add(label);
             dialog.pack();
             dialog.setVisible(true);
+
+        }
+        else if(client.fileType.contains("html")) {
+            zoneHeader.setText(client.header);
+            zoneFichier.setText(client.fileContent);
+            try {
+                Desktop.getDesktop().browse(client.file.toURI());
+            } catch (IOException e1) {
+                zoneFichier.setText("Unable to lauch html page in browser");
+                e1.printStackTrace();
+            }
         }
         else{
             zoneHeader.setText(client.header);

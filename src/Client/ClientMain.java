@@ -3,8 +3,12 @@ package Client;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -33,6 +37,8 @@ public class ClientMain extends Application {
             primaryStage.setTitle("ClientView");
             // Display the Stage
             primaryStage.show();
+
+
         } catch (IOException e) {
             System.out.println("Failed to open ClientView : /n" + e);
         }

@@ -71,7 +71,7 @@ public class Communication implements Runnable {
                     String contentType = "Content-Type: " + fileType;
                     System.out.println(fileType);
 
-                    System.out.println("débug : " + path);
+                    // System.out.println("débug : " + path);
                     File file = new File(path);
 
                     // Si le chemin d'accès n'est pas rentrée correctement (le fichier ne peut pas être récupéré)

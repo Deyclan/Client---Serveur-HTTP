@@ -11,7 +11,7 @@ public class ServerHTTP implements Runnable {
 
     private ServerSocket serverSocket;
     private Socket clientSocket;
-    int port = 2046;
+    int port = 1026;
 
     public ServerHTTP(){
         /*
